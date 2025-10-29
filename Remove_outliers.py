@@ -8,17 +8,20 @@ column_names = [
     "thalach", "exang", "oldpeak", "slope", "ca", "thal", "target"
 ]
 
-def detect_outliers_iqr(df, column):
+def remove_outliers_iqr(df, column):
     Q1 = df[column].quantile(0.25)
     Q3 = df[column].quantile(0.75)
     IQR = Q3 - Q1
     lower = Q1 - 1.5 * IQR
     upper = Q3 + 1.5 * IQR
-    
-    outliers = df[(df[column] < lower) | (df[column] > upper)]
-    print(f"{column}: {len(outliers)} outliers")
-    return outliers
+    return df[(df[column] >= lower) & (df[column] <= upper)]
 
-# Exemplo com as principais variáveis
+# Aplicar para variáveis com outliers
 for col in column_names:
-    detect_outliers_iqr(dataset, col)
+    dataset = remove_outliers_iqr(dataset, col)
+
+dataset.to_csv(
+    "./data/cleveland.csv",
+    index=False,
+)
+print(f"Novo número de linhas: {len(dataset)}")
