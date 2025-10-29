@@ -10,7 +10,6 @@ dataset = pd.read_csv(
     header=None,
     names=column_names,
     na_values='?',
-    encoding='latin1'
 )
 
 dataset.to_csv(
