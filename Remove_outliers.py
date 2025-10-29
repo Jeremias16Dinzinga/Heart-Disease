@@ -3,10 +3,7 @@ import pandas as pd
 dataset_filename = "./data/cleveland.csv"
 dataset = pd.read_csv(dataset_filename)
 
-column_names = [
-    "age", "sex", "cp", "trestbps", "chol", "fbs", "restecg",
-    "thalach", "exang", "oldpeak", "slope", "ca", "thal", "target"
-]
+continuous_cols = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
 
 def remove_outliers_iqr(df, column):
     Q1 = df[column].quantile(0.25)
@@ -17,7 +14,7 @@ def remove_outliers_iqr(df, column):
     return df[(df[column] >= lower) & (df[column] <= upper)]
 
 # Aplicar para variáveis com outliers
-for col in column_names:
+for col in continuous_cols:
     dataset = remove_outliers_iqr(dataset, col)
 
 dataset.to_csv(
