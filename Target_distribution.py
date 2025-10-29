@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import seaborn as sns
+import pandas as pd
 
-from Utils import show_variable_plots
+from Utils import num_groups, show_variable_plots
 
 ## Configurations
 dataset_filename = "./data/cleveland.csv"
@@ -15,17 +15,18 @@ dataset = pd.read_csv(dataset_filename)
 
 columns = dataset.columns
 
-def plot_outliers(variables, rows, columns):
+def plot_distributions(variables, rows, columns):
     fig, axes = plt.subplots(rows, columns)
     axes = axes.flatten() # Flatten in case of a single row or column
 
     for i, col in enumerate(variables):
-        sns.boxplot(
-            x=dataset[col],
-            ax=axes[i]
+        sns.kdeplot(
+            data=dataset,
+            x=col,
+            hue='target',
+            multiple="stack",
+            ax = axes[i]
         )
-        axes[i].set_title(f'Boxplot of {col}')
-        axes[i].set_xlabel(col)
 
     # Hide any unused subplots
     for j in range(i + 1, len(axes)):
@@ -40,6 +41,6 @@ input_columns = columns[0:num_inputs]
 
 if variables is None:
     num_inputs = len(columns) - num_outputs
-    show_variable_plots(columns[0:num_inputs], plot_outliers, max_rows, max_cols)
+    show_variable_plots(columns[0:num_inputs], plot_distributions, max_rows, max_cols)
 else:
-    show_variable_plots(variables, plot_outliers, max_rows, max_cols)
+    show_variable_plots(variables, plot_distributions, max_rows, max_cols)
