@@ -1,6 +1,6 @@
 import pandas as pd
 
-dataset = pd.read_csv("./data/cleveland.data", encoding='latin1')
+dataset = pd.read_csv("./data/cleveland.data", header=None)
 
 # Check data types and missing data
 dataset.info()
