@@ -6,4 +6,4 @@ dataset = pd.read_csv("./data/cleveland.data", header=None)
 dataset.info()
 
 # Print statistic information
-print(dataset.describe(include="all"))
+#print(dataset.describe(include="all"))
