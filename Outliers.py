@@ -2,10 +2,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from Utils import show_variable_plots
+from utils import show_variable_plots
 
 ## Configurations
+dataset_filename_train = "./data/cleveland_train.csv"
+dataset_filename_test = "./data/cleveland_test.csv"
 dataset_filename = "./data/cleveland.csv"
+
 num_outputs = 1
 variables = None # Histogram variables to show. None to show all
 max_rows = 2
