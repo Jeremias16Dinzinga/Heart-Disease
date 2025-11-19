@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
 
 ## Configurations
 dataset_filename = "./data/cleveland.csv"
@@ -22,6 +23,22 @@ x_train, x_test, t_train, t_test = train_test_split(
     x, t,
     train_size = perc_train, stratify = t
 )
+
+# Guardar o índice original antes da transformação
+x_train_original = x_train.copy()
+x_test_original = x_test.copy()
+
+imputer = SimpleImputer(strategy="mean")
+
+# x_train precisa ajustar e transformar
+x_train = imputer.fit_transform(x_train)
+
+# x_test só transforma
+x_test = imputer.transform(x_test)
+
+# Transformar de volta em DataFrame para manter colunas e índice
+x_train = pd.DataFrame(x_train, columns=column_names, index=x_train_original.index)
+x_test  = pd.DataFrame(x_test, columns=column_names, index=x_test_original.index)
 
 # Data rescale
 scaler = StandardScaler().fit(x_train)
