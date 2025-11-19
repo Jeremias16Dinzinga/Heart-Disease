@@ -4,6 +4,7 @@ from sklearn.preprocessing import RobustScaler
 
 # Carregar dataset original
 dataset_filename = "./data/cleveland.csv"
+
 dataset = pd.read_csv(dataset_filename)
 
 # Colunas contínuas (numéricas)
