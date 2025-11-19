@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 dataset_filename = "./data/cleveland.csv"
 train_dataset = "./data/cleveland_train.csv"
 test_dataset = "./data/cleveland_test.csv"
-targets = ["target"]
+targets = "target"
 perc_train = 50/100
 
 dataset = pd.read_csv(dataset_filename)
@@ -13,9 +13,11 @@ dataset = pd.read_csv(dataset_filename)
 x = dataset.drop(columns=targets)
 t = dataset[targets]
 
+print(t.value_counts())
+
 x_train, x_test, t_train, t_test = train_test_split(
     x, t,
-    train_size = perc_train
+    train_size = perc_train, stratify = t
 )
 
 train = pd.concat([x_train, t_train], axis='columns', join='inner')
