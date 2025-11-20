@@ -8,7 +8,7 @@ dataset_filename = "./data/cleveland.csv"
 train_dataset = "./data/cleveland_train.csv"
 test_dataset = "./data/cleveland_test.csv"
 targets = ["target"]
-perc_train = 50/100
+perc_train = 80/100
 
 dataset = pd.read_csv(dataset_filename)
 
@@ -56,8 +56,8 @@ x_test_scaled = pd.DataFrame(
 )
 
 
-train = pd.concat([x_train, t_train], axis='columns', join='inner')
-test = pd.concat([x_test, t_test], axis='columns', join='inner')
+train = pd.concat([x_train_scaled, t_train], axis='columns')
+test = pd.concat([x_test_scaled, t_test], axis='columns')
 
 train.to_csv(train_dataset, index=False)
 test.to_csv(test_dataset, index=False)

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 train_filename = "./data/cleveland_train.csv"
 test_filename = "./data/cleveland_test.csv"
 targets = ["target"]
-n_neighbors = 1
+n_neighbors = 9
 
 train_dataset = pd.read_csv(train_filename)
 test_dataset = pd.read_csv(test_filename)
@@ -19,7 +19,7 @@ t_train = train_dataset[targets] # real
 x_test = test_dataset.drop(columns=targets)
 t_test = test_dataset[targets] # real
 
-knn = KNeighborsClassifier(n_neighbors)
+knn = KNeighborsClassifier(n_neighbors=n_neighbors)
 knn.fit(x_train, t_train)
 
 y_train = knn.predict(x_train) # model output

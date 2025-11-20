@@ -27,8 +27,8 @@ pipeline = Pipeline([
 
 # Parameters for GridSearch
 param = {
-    'knn__n_neighbors': range(1, 21),
-    'knn__p': [1, 2, 3, 4, 5]
+    'knn__n_neighbors': range(1, 15),
+    'knn__p': [1, 2]
 }
 
 # GridSearchCV
