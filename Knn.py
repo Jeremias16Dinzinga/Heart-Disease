@@ -3,6 +3,10 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+from sklearn.metrics import (
+    accuracy_score, f1_score, recall_score, precision_score,
+    ConfusionMatrixDisplay
+)
 
 ## Configurations
 train_filename = "./data/cleveland_train.csv"
@@ -26,6 +30,24 @@ y_train = knn.predict(x_train) # model output
 y_test = knn.predict(x_test) # model output
 
 classes = train_dataset['target'].unique()
+
+
+def evaluate_model(real, predicted, dataset_name):
+    print(f"\n--- Métricas para {dataset_name} ---")
+    print(f"Acurácia:          {accuracy_score(real, predicted):.3f}")
+    print(f"F1-score (macro):  {f1_score(real, predicted, average='macro'):.3f}")
+    print(f"F1-score (weighted): {f1_score(real, predicted, average='weighted'):.3f}")
+    print(f"Recall (macro):    {recall_score(real, predicted, average='macro'):.3f}")
+    print(f"Precision (macro): {precision_score(real, predicted, average='macro'):.3f}")
+
+    # Matriz de confusão
+    cm = ConfusionMatrixDisplay.from_predictions(real, predicted, labels=classes)
+    cm.ax_.set_title(f"Matriz de Confusão: {dataset_name}")
+    plt.show()
+
+# Avaliar treino e teste
+evaluate_model(t_train, y_train, "Treino")
+evaluate_model(t_test, y_test, "Teste")
 
 def display_confusion_matrix(real, model_output, classes, title):
     cm = ConfusionMatrixDisplay.from_predictions(real, model_output, labels=sort(classes))
