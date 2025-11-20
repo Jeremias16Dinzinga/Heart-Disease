@@ -17,7 +17,7 @@ y = dataset[target_col]
 
 # Dividir em treino e teste
 x_train, x_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X, y, test_size=0.5, random_state=42, stratify=y
 )
 
 # Aplicar RobustScaler
@@ -35,12 +35,12 @@ train_scaled = pd.concat([x_train_scaled, y_train], axis=1)
 test_scaled = pd.concat([x_test_scaled, y_test], axis=1)
 
 # Guardar os ficheiros
-train_scaled.to_csv("./data/cleveland_train_scaled.csv", index=False)
-test_scaled.to_csv("./data/cleveland_test_scaled.csv", index=False)
+train_scaled.to_csv("./data/cleveland_train.csv", index=False)
+test_scaled.to_csv("./data/cleveland_test.csv", index=False)
 
 print("Normalização robusta concluída!")
 print(f"Tamanho do treino: {x_train.shape[0]} linhas")
 print(f"Tamanho do teste:  {x_test.shape[0]} linhas")
 print("Ficheiros salvos em:")
-print(" - ./data/cleveland_train_scaled.csv")
-print(" - ./data/cleveland_test_scaled.csv")
+print(" - ./data/cleveland_train.csv")
+print(" - ./data/cleveland_test.csv")

@@ -4,7 +4,7 @@ dataset_filename_train = "./data/cleveland_train.csv"
 dataset_filename_test = "./data/cleveland_test.csv"
 dataset_filename = "./data/cleveland.csv"
 
-dataset = pd.read_csv(dataset_filename_test)
+dataset = pd.read_csv(dataset_filename)
 
 continuous_cols = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
 
