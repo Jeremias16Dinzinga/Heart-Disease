@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn import svm
 from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+import numpy as np
 
 ## Configurations
 train_filename = "./data/cleveland_train.csv"
@@ -29,7 +30,13 @@ classes = sorted(train_dataset['target'].unique())
 
 # ----- MATRIZ DE CONFUSÃO -----
 
-def display_confusion_matrix(real, predicted, classes, title):
+def display_confusion_matrix(real, predicted, title):
+    real = np.array(real).astype(int)
+    predicted = np.array(predicted).astype(int)
+
+    # classes = união entre classes reais e previstas
+    classes = sorted(np.unique(np.concatenate([real, predicted])))
+
     cm = ConfusionMatrixDisplay.from_predictions(
         real,
         predicted,
@@ -39,7 +46,7 @@ def display_confusion_matrix(real, predicted, classes, title):
     plt.show()
 
 # Treino
-display_confusion_matrix(t_train, y_train, classes, "Train - Matriz de Confusão")
+display_confusion_matrix(t_train, y_train, "Train - Matriz de Confusão")
 
 # Teste
-display_confusion_matrix(t_test, y_test, classes, "Test - Matriz de Confusão")
+display_confusion_matrix(t_test, y_test, "Test - Matriz de Confusão")
